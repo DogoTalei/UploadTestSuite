@@ -11,3 +11,6 @@ pip install colorama
 
 2. ervidor de Pruebas: Un servidor con el endpoint http://URL/backup/upload.php debe estar en funcionamiento para recibir las cargas de archivos. Asegúrate de que la URL esté accesible y correcta. 
 
+# Como Ejecutar 
+python3 UploadTestSuite.py 
+
