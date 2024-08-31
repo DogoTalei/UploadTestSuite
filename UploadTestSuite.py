@@ -1,7 +1,6 @@
 import requests
 from colorama import Fore, Style, init
 import os
-import subprocess
 
 # Inicializar colorama
 init()
@@ -65,45 +64,16 @@ file_types = [
     ('application/x-font-woff2', 'DogoTalei.woff2'),
     ('application/json', 'DogoTalei.json'),
     ('application/x-sqlite3', 'DogoTalei.sqlite'),
-    
-    # Archivos PHAR
-    ('application/x-php-archive', 'DogoTalei.phar'),  # Archivo PHAR para prueba
 ]
 
 # Contenido del archivo de prueba (para archivos binarios, el contenido puede no ser relevante)
 file_content = b'This is a test file.'
 
-def create_phar_file(file_name):
-    """Crea un archivo PHAR con un archivo PHP de prueba dentro usando PHP CLI"""
-    phar_content = """<?php
-    $phar = new Phar('{file_name}');
-    $phar->addFromString('test.php', '<?php echo "Hello, World!"; ?>');
-    $phar->setStub('<?php __HALT_COMPILER(); ?>');
-    ?>
-    """
-    phar_script = 'create_phar.php'
-    
-    with open(phar_script, 'w') as f:
-        f.write(phar_content.format(file_name=file_name))
-    
-    try:
-        # Ejecutar el script PHP para crear el archivo PHAR
-        subprocess.run(['php', phar_script], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f'{Fore.RED}Error creating PHAR file: {e}{Style.RESET_ALL}')
-    finally:
-        # Limpiar el script PHP
-        if os.path.exists(phar_script):
-            os.remove(phar_script)
-
 # Función principal
 for file_type, file_name in file_types:
     # Crear un archivo de prueba
-    if file_name.endswith('.phar'):
-        create_phar_file(file_name)
-    else:
-        with open(file_name, 'wb') as f:
-            f.write(file_content)
+    with open(file_name, 'wb') as f:
+        f.write(file_content)
 
     # Preparar el archivo para la carga
     files = {
