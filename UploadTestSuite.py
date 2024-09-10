@@ -6,7 +6,7 @@ import os
 init()
 
 # URL del endpoint de carga de archivos
-upload_url = 'http://192.168.1.104/my_weblog/content/public/upload/'  # URL corregida
+upload_url = 'URL'  # URL corregida
 
 # Lista de tipos de archivos para probar
 file_types = [
